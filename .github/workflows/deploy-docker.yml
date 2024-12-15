@@ -136,6 +136,7 @@ jobs:
         name: >-
           📦 Release › Github › arm64
         runs-on: ubuntu-latest
+        needs: [ job-docker-release-tags-create ]
         permissions:
             contents: write
             packages: write
@@ -247,6 +248,7 @@ jobs:
         name: >-
           📦 Release › Dockerhub › arm64
         runs-on: ubuntu-latest
+        needs: [ job-docker-release-tags-create ]
         permissions:
             contents: write
             packages: write
@@ -363,7 +365,7 @@ jobs:
             packages: write
             attestations: write
             id-token: write
-        needs: [ job-docker-release-github-arm64, job-docker-release-dockerhub-arm64 ]
+        needs: [ job-docker-release-tags-create, job-docker-release-github-arm64, job-docker-release-dockerhub-arm64 ]
         steps:
 
             # #
@@ -475,7 +477,7 @@ jobs:
             packages: write
             attestations: write
             id-token: write
-        needs: [ job-docker-release-github-arm64, job-docker-release-dockerhub-arm64 ]
+        needs: [ job-docker-release-tags-create, job-docker-release-github-arm64, job-docker-release-dockerhub-arm64 ]
         steps:
 
             # #
