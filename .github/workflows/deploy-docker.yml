@@ -110,7 +110,6 @@ jobs:
               id: task_ctags_checkout
               uses: actions/checkout@v4
               with:
-                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -162,7 +161,6 @@ jobs:
               id: task_release_gh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -241,7 +239,7 @@ jobs:
                   file: Dockerfile.aarch64
                   platforms: linux/arm64
                   push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
-                  tags: ${{ steps.task_release_gh_meta.outputs.tags }}
+                  tags: ${{ steps.task_release_gh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
 
     # #
@@ -277,7 +275,7 @@ jobs:
               id: task_release_dh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
+
                   fetch-depth: 0
 
             # #
@@ -355,7 +353,7 @@ jobs:
                   file: Dockerfile.aarch64
                   platforms: linux/arm64
                   push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
-                  tags: ${{ steps.task_release_dh_meta.outputs.tags }}
+                  tags: ${{ steps.task_release_dh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
 
     # #
@@ -391,7 +389,6 @@ jobs:
               id: task_release_gh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -470,7 +467,7 @@ jobs:
                   file: Dockerfile
                   platforms: linux/amd64
                   push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
-                  tags: ${{ steps.task_release_gh_meta.outputs.tags }}
+                  tags: ${{ steps.task_release_gh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
 
     # #
@@ -506,7 +503,6 @@ jobs:
               id: task_release_dh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -584,5 +580,5 @@ jobs:
                   file: Dockerfile
                   platforms: linux/amd64
                   push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
-                  tags: ${{ steps.task_release_dh_meta.outputs.tags }}
+                  tags: ${{ steps.task_release_dh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
