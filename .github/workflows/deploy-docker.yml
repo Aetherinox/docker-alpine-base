@@ -246,7 +246,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
+                  username: aetherinox
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
@@ -471,7 +471,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
+                  username: aetherinox
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
