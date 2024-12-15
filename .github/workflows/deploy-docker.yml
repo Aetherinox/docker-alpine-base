@@ -110,7 +110,7 @@ jobs:
               id: task_ctags_checkout
               uses: actions/checkout@v4
               with:
-                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
+                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -162,7 +162,7 @@ jobs:
               id: task_release_gh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
+                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -277,7 +277,7 @@ jobs:
               id: task_release_dh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
+                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -391,7 +391,7 @@ jobs:
               id: task_release_gh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
+                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -506,7 +506,7 @@ jobs:
               id: task_release_dh_checkout
               uses: actions/checkout@v4
               with:
-                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
+                  ref: refs/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
