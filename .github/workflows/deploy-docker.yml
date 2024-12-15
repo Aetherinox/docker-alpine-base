@@ -5,8 +5,8 @@
 #   @url                https://github.com/Aetherinox
 # #
 
-name: "⚙️ Deploy › Docker › Main"
-run-name: "⚙️ Deploy › Docker › Main"
+name: "⚙️ Deploy › Docker"
+run-name: "⚙️ Deploy › Docker"
 
 # #
 #   triggers
@@ -76,9 +76,9 @@ jobs:
     #   Job > Docker Release > Github
     # #
 
-    job-docker-release-github-php:
+    job-docker-release-github-arm64:
         name: >-
-          📦 Release › Github › PHP
+          📦 Release › Github › arm64
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -147,7 +147,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/docker-${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-arm64
                   tags: |
                       type=ref,enable=true,priority=600,prefix=,suffix=-php,event=tag
                   flavor: |
@@ -172,14 +172,14 @@ jobs:
             #   Release > Github > Build and Push
             # #
 
-            - name: "📦 Build and push"
+            - name: "📦 Build & Push (linux/arm64)"
               id: task_release_gh_push
               uses: docker/build-push-action@v6
               if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
               with:
                   context: .
-                  file: Dockerfile-php.template
-                  platforms: linux/amd64
+                  file: Dockerfile.aarch64
+                  platforms: linux/arm64
                   push: ${{ github.event_name != 'pull_request' }}
                   tags: ${{ steps.task_release_gh_meta.outputs.tags }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
@@ -188,9 +188,9 @@ jobs:
     #   Job > Docker Release > Github
     # #
 
-    job-docker-release-dockerhub-php:
+    job-docker-release-dockerhub-arm64:
         name: >-
-          📦 Release › Dockerhub › PHP
+          📦 Release › Dockerhub › arm64
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -258,7 +258,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-arm64
                   tags: |
                       type=raw,value=latest,enable=false
                       type=ref,enable=true,priority=600,prefix=,suffix=-php,event=tag
@@ -284,14 +284,14 @@ jobs:
             #   Release > Dockerhub > Build and Push
             # #
 
-            - name: "📦 Build and push"
+            - name: "📦 Build & Push (linux/arm64)"
               id: task_release_dh_push
               uses: docker/build-push-action@v6
               if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
               with:
                   context: .
-                  file: Dockerfile-php.template
-                  platforms: linux/amd64
+                  file: Dockerfile.aarch64
+                  platforms: linux/arm64
                   push: ${{ github.event_name != 'pull_request' }}
                   tags: ${{ steps.task_release_dh_meta.outputs.tags }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
@@ -300,16 +300,16 @@ jobs:
     #   Job > Docker Release > Github
     # #
 
-    job-docker-release-github-main:
+    job-docker-release-github-amd64:
         name: >-
-          📦 Release › Github › Main
+          📦 Release › Github › amd64
         runs-on: ubuntu-latest
         permissions:
             contents: read
             packages: write
             attestations: write
             id-token: write
-        needs: [ job-docker-release-github-php, job-docker-release-dockerhub-php ]
+        needs: [ job-docker-release-github-arm64, job-docker-release-dockerhub-arm64 ]
         steps:
 
             # #
@@ -372,7 +372,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/docker-${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-amd64
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
                       type=ref,event=tag
@@ -396,7 +396,7 @@ jobs:
             #   Release > Github > Build and Push
             # #
 
-            - name: "📦 Build and push"
+            - name: "📦 Build & Push (linux/amd64)"
               id: task_release_gh_push
               uses: docker/build-push-action@v6
               if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
@@ -412,16 +412,16 @@ jobs:
     #   Job > Docker Release > Github
     # #
 
-    job-docker-release-dockerhub-main:
+    job-docker-release-dockerhub-amd64:
         name: >-
-          📦 Release › Dockerhub › Main
+          📦 Release › Dockerhub › amd64
         runs-on: ubuntu-latest
         permissions:
             contents: read
             packages: write
             attestations: write
             id-token: write
-        needs: [ job-docker-release-github-php, job-docker-release-dockerhub-php ]
+        needs: [ job-docker-release-github-arm64, job-docker-release-dockerhub-arm64 ]
         steps:
 
             # #
@@ -483,7 +483,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-amd64
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
                       type=ref,event=tag
@@ -507,7 +507,7 @@ jobs:
             #   Release > Dockerhub > Build and Push
             # #
 
-            - name: "📦 Build & Push"
+            - name: "📦 Build & Push (linux/amd64)"
               id: task_release_dh_push
               uses: docker/build-push-action@v6
               if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
