@@ -36,7 +36,7 @@ on:
             IMAGE_VERSION:
                 description:  "📦 Image Version"
                 required:     true
-                default:      '1.0.0'
+                default:      '3.20'
                 type:         string
 
             # #
