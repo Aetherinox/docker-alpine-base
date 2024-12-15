@@ -110,6 +110,7 @@ jobs:
               id: task_ctags_checkout
               uses: actions/checkout@v4
               with:
+                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -161,6 +162,7 @@ jobs:
               id: task_release_gh_checkout
               uses: actions/checkout@v4
               with:
+                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -207,7 +209,7 @@ jobs:
                   tags: |
                       type=raw,value=latest,enable=false
                       type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-arm64,value=${{ INPUTS.IMAGE_VERSION }}
-                      type=ref,enable=${{ github.event_name == 'pull_request' }},priority=600,prefix=,suffix=-arm64,event=tag
+                      type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-arm64,event=tag
                   flavor: |
                       latest=false
 
@@ -275,6 +277,7 @@ jobs:
               id: task_release_dh_checkout
               uses: actions/checkout@v4
               with:
+                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -320,7 +323,7 @@ jobs:
                   tags: |
                       type=raw,value=latest,enable=false
                       type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-arm64,value=${{ INPUTS.IMAGE_VERSION }}
-                      type=ref,enable=${{ github.event_name == 'pull_request' }},priority=600,prefix=,suffix=-arm64,event=tag
+                      type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-arm64,event=tag
                   flavor: |
                       latest=false
 
@@ -388,6 +391,7 @@ jobs:
               id: task_release_gh_checkout
               uses: actions/checkout@v4
               with:
+                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -434,7 +438,7 @@ jobs:
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
                       type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-amd64,value=${{ INPUTS.IMAGE_VERSION }}
-                      type=ref,enable=${{ github.event_name == 'pull_request' }},priority=600,prefix=,suffix=-amd64,event=tag
+                      type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-amd64,event=tag
                   flavor: |
                       latest=true
 
@@ -502,6 +506,7 @@ jobs:
               id: task_release_dh_checkout
               uses: actions/checkout@v4
               with:
+                  ref: ref/tags/${{ inputs.IMAGE_VERSION || github.ref_name }}
                   fetch-depth: 0
 
             # #
@@ -547,7 +552,7 @@ jobs:
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
                       type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-amd64,value=${{ INPUTS.IMAGE_VERSION }}
-                      type=ref,enable=${{ github.event_name == 'pull_request' }},priority=600,prefix=,suffix=-amd64,event=tag
+                      type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-amd64,event=tag
                   flavor: |
                       latest=true
 
