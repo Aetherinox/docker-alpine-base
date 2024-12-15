@@ -79,6 +79,56 @@ env:
 jobs:
 
     # #
+    #   Job > Create Tag
+    # #
+
+    job-docker-release-tags-create:
+        name: >-
+          📦 Release › Create Tag
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            packages: write
+            attestations: write
+            id-token: write
+        steps:
+
+            # #
+            #   Release > Tags > Start
+            # #
+
+            - name: "✅ Start"
+              id: task_ctags_start
+              run: |
+                echo "Creating Tag"
+
+            # #
+            #   Release > Tags > Checkout
+            # #
+
+            - name: "☑️ Checkout"
+              id: task_ctags_checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            # #
+            #   Release > Tags > Create Tag
+            #
+            #   only called in dispatch mode
+            # #
+
+            - uses: rickstaa/action-create-tag@v1
+              id: task_ctags_create
+              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false )
+              with:
+                  tag: "${{ INPUTS.IMAGE_VERSION }}"
+                  tag_exists_error: false
+                  message: '${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-${{ INPUTS.IMAGE_VERSION }}'
+                  gpg_private_key: ${{ secrets.ADMINSERV_GPG_KEY_ASC }}
+                  gpg_passphrase: ${{ secrets.ADMINSERV_GPG_PASSPHRASE }}
+
+    # #
     #   Job > Docker Release > Github
     # #
 
@@ -111,22 +161,6 @@ jobs:
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-
-            # #
-            #   Release > Github > Create Tag
-            #
-            #   only called in dispatch mode
-            # #
-
-            - uses: rickstaa/action-create-tag@v1
-              id: task_release_gh_wf_dispatch
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false )
-              with:
-                  tag: "${{ INPUTS.IMAGE_VERSION }}"
-                  tag_exists_error: false
-                  message: '${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-${{ INPUTS.IMAGE_VERSION }}'
-                  gpg_private_key: ${{ secrets.ADMINSERV_GPG_KEY_ASC }}
-                  gpg_passphrase: ${{ secrets.ADMINSERV_GPG_PASSPHRASE }}
 
             # #
             #   Release > Github > QEMU
@@ -238,22 +272,6 @@ jobs:
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-
-            # #
-            #   Release > Dockerhub > Create Tag
-            #
-            #   only called in dispatch mode
-            # #
-
-            - uses: rickstaa/action-create-tag@v1
-              id: task_release_dh_wf_dispatch
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false )
-              with:
-                  tag: ${{ INPUTS.IMAGE_VERSION }}
-                  tag_exists_error: false
-                  message: '${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-${{ INPUTS.IMAGE_VERSION }}'
-                  gpg_private_key: ${{ secrets.ADMINSERV_GPG_KEY_ASC }}
-                  gpg_passphrase: ${{ secrets.ADMINSERV_GPG_PASSPHRASE }}
 
             # #
             #   Release > Dockerhub > QEMU
@@ -368,22 +386,6 @@ jobs:
                   fetch-depth: 0
 
             # #
-            #   Release > Github > Create Tag
-            #
-            #   only called in dispatch mode
-            # #
-
-            - uses: rickstaa/action-create-tag@v1
-              id: task_release_gh_wf_dispatch
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false )
-              with:
-                  tag: ${{ INPUTS.IMAGE_VERSION }}
-                  tag_exists_error: false
-                  message: '${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-${{ INPUTS.IMAGE_VERSION }}'
-                  gpg_private_key: ${{ secrets.ADMINSERV_GPG_KEY_ASC }}
-                  gpg_passphrase: ${{ secrets.ADMINSERV_GPG_PASSPHRASE }}
-
-            # #
             #   Release > Github > QEMU
             # #
 
@@ -494,22 +496,6 @@ jobs:
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-
-            # #
-            #   Release > Dockerhub > Create Tag
-            #
-            #   only called in dispatch mode
-            # #
-
-            - uses: rickstaa/action-create-tag@v1
-              id: task_release_dh_wf_dispatch
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false )
-              with:
-                  tag: ${{ INPUTS.IMAGE_VERSION }}
-                  tag_exists_error: false
-                  message: '${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}-${{ INPUTS.IMAGE_VERSION }}'
-                  gpg_private_key: ${{ secrets.ADMINSERV_GPG_KEY_ASC }}
-                  gpg_passphrase: ${{ secrets.ADMINSERV_GPG_PASSPHRASE }}
 
             # #
             #   Release > Dockerhub > QEMU
