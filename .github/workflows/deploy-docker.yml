@@ -245,7 +245,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
+                  username: aetherinox
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
@@ -352,7 +352,7 @@ jobs:
             #   Release > Github > Registry Login
             # #
 
-            - name: "⚙️ Login to DockerHub"
+            - name: "⚙️ Login to Github"
               id: task_release_gh_registry
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
@@ -468,7 +468,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
+                  username: aetherinox
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
