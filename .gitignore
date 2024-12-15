@@ -1,4 +1,9 @@
 # #
+#   @file           .gitignore
+#   @author         Aetherinox <https://github.com/Aetherinox>
+# #
+
+# #
 #   Windows image file caches
 # #
 
@@ -39,6 +44,48 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# #
+#   Binaries
+# #
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# #
+#   Test binary
+#   build with `go test -c`
+# #
+
+*.test
+
+# #
+#   Output for go coverage tool, specifically when used with LiteIDE
+# #
+
+*.out
+
+# #
+#   Go workspace file
+# #
+
+go.work
+
+# #
+#   Visual Studio Code
+# #
+
+.vscode/
+
+# #
+#   Python Cache
+# #
+
+__pycache__/
+
 
 # #
 #   Thumbnails
