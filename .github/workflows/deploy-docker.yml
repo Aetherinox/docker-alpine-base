@@ -129,7 +129,7 @@ jobs:
             #   Release > Github > Registry Login
             # #
 
-            - name: "⚙️ Login to DockerHub"
+            - name: "⚙️ Login to Github"
               id: task_release_gh_registry
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
@@ -147,7 +147,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ghcr.io/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}/docker-${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/docker-${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=ref,enable=true,priority=600,prefix=,suffix=-php,event=tag
                   flavor: |
@@ -245,7 +245,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: ${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
@@ -257,7 +257,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      aetherinox/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=false
                       type=ref,enable=true,priority=600,prefix=,suffix=-php,event=tag
@@ -370,7 +370,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ghcr.io/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}/docker-${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/docker-${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
                       type=ref,event=tag
@@ -468,7 +468,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: ${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
@@ -480,7 +480,7 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   images: |
-                      ${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
+                      ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
                       type=ref,event=tag
