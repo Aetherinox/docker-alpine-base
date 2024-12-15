@@ -238,7 +238,7 @@ jobs:
                   context: .
                   file: Dockerfile.aarch64
                   platforms: linux/arm64
-                  push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
+                  push: ${{ github.event_name != 'pull_request' }}
                   tags: ${{ steps.task_release_gh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
 
@@ -352,7 +352,7 @@ jobs:
                   context: .
                   file: Dockerfile.aarch64
                   platforms: linux/arm64
-                  push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
+                  push: ${{ github.event_name != 'pull_request' }}
                   tags: ${{ steps.task_release_dh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
 
@@ -466,7 +466,7 @@ jobs:
                   context: .
                   file: Dockerfile
                   platforms: linux/amd64
-                  push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
+                  push: ${{ github.event_name != 'pull_request' }}
                   tags: ${{ steps.task_release_gh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
 
@@ -579,6 +579,6 @@ jobs:
                   context: .
                   file: Dockerfile
                   platforms: linux/amd64
-                  push: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' }}
+                  push: ${{ github.event_name != 'pull_request' }}
                   tags: ${{ steps.task_release_dh_meta.outputs.tags || inputs.IMAGE_VERSION }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
