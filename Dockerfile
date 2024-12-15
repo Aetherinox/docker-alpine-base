@@ -57,7 +57,7 @@ ARG WITHCONTENV_VERSION="v1"
 LABEL build_version="Keeweb.info version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Aetherinox"
 
-ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/docker-alpine-base.${MODS_VERSION}" "/docker-alpine-base"
+ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/docker-images.${MODS_VERSION}" "/docker-images"
 ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
 ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/kwwn.${KWWN_VERSION}" "/usr/bin/kwwn"
 ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/with-contenv.${WITHCONTENV_VERSION}" "/usr/bin/with-contenv"
