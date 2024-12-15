@@ -57,10 +57,10 @@ ARG WITHCONTENV_VERSION="v1"
 LABEL build_version="Keeweb.info version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Aetherinox"
 
-ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/scripts/docker-alpine-base.${MODS_VERSION}" "/docker-alpine-base"
-ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
-ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/scripts/kwwn.${KWWN_VERSION}" "/usr/bin/kwwn"
-ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/scripts/with-contenv.${WITHCONTENV_VERSION}" "/usr/bin/with-contenv"
+ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/docker-alpine-base.${MODS_VERSION}" "/docker-alpine-base"
+ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
+ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/kwwn.${KWWN_VERSION}" "/usr/bin/kwwn"
+ADD --chmod=755 "https://raw.githubusercontent.com/aetherinox/docker-alpine-base/cdn/core/with-contenv.${WITHCONTENV_VERSION}" "/usr/bin/with-contenv"
 
 # environment variables
 ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
