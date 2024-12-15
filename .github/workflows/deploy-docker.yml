@@ -175,7 +175,7 @@ jobs:
             - name: "📦 Build and push"
               id: task_release_gh_push
               uses: docker/build-push-action@v6
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == 'false' ) || ( github.event_name == 'push' )
+              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
               with:
                   context: .
                   file: Dockerfile-php.template
@@ -287,7 +287,7 @@ jobs:
             - name: "📦 Build and push"
               id: task_release_dh_push
               uses: docker/build-push-action@v6
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == 'false' ) || ( github.event_name == 'push' )
+              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
               with:
                   context: .
                   file: Dockerfile-php.template
@@ -399,7 +399,7 @@ jobs:
             - name: "📦 Build and push"
               id: task_release_gh_push
               uses: docker/build-push-action@v6
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == 'false' ) || ( github.event_name == 'push' )
+              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
               with:
                   context: .
                   file: Dockerfile
@@ -510,7 +510,7 @@ jobs:
             - name: "📦 Build & Push"
               id: task_release_dh_push
               uses: docker/build-push-action@v6
-              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == 'false' ) || ( github.event_name == 'push' )
+              if: ( github.event_name == 'workflow_dispatch' && inputs.PRINT_ONLY == false ) || ( github.event_name == 'push' )
               with:
                   context: .
                   file: Dockerfile
