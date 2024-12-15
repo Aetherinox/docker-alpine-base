@@ -30,7 +30,7 @@ on:
             IMAGE_AUTHOR:
                 description:  "📦 Image Author"
                 required:     true
-                default:      'Aetherinox'
+                default:      'aetherinox'
                 type:         string
 
             # #
@@ -245,7 +245,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: aetherinox
+                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
@@ -468,7 +468,7 @@ jobs:
               if: github.event_name != 'pull_request'
               uses: docker/login-action@v3
               with:
-                  username: aetherinox
+                  username: ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}
                   password: ${{ secrets.SELF_DOCKERHUB_TOKEN }}
 
             # #
