@@ -541,6 +541,7 @@ jobs:
                       ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
+                      type=ref,enable=true,priority=600,prefix=,suffix=-amd64,event=tag
                       type=ref,event=tag
 
             # #
