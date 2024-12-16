@@ -29,5 +29,5 @@ docker build --build-arg VERSION=3.20 --build-arg BUILD_DATE=12.15.24 -t docker-
 After the build is complete, you can now use this docker image as a base for the official Keeweb docker image within your `Dockerfile`:
 
 ```dockerfile
-FROM ghcr.io/aetherinox/alpine-base:3.20-amd64
+FROM ghcr.io/keeweb/alpine-base:3.20-amd64
 ```
