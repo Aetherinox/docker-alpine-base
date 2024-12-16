@@ -7,7 +7,7 @@ if builtin command -v crontab >/dev/null 2>&1 && [[ -n "$(crontab -l -u keeweb 2
     elif [[ -f /usr/bin/apt ]] && [[ -f /usr/sbin/cron ]]; then
         exec /usr/sbin/cron -f -L 5
     else
-        echo "**** NOTICE: CRON NOT FOUND ****"
+        echo "**** cron not found ****"
         sleep infinity
     fi
 else

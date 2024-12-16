@@ -28,7 +28,7 @@ echo "
         Port HTTP ......... $(echo $PORT_HTTP)
         Port HTTPS ........ $(echo $PORT_HTTPS)"
 
-echo '───────────────────────────────────────────────────────────────'
+echo '──────────────────────────────────────────────────────────────────────────────────────────'
 
 if [[ -z ${KW_READ_ONLY_FS} ]] && [[ -z ${KW_NON_ROOT_USER} ]]; then
     kwwn keeweb:keeweb /app
