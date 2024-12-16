@@ -1,7 +1,0 @@
-───────────────────────────────────────────────────────────────
-                 KeeWeb Alpine Base Image                 
-───────────────────────────────────────────────────────────────
-  This is a base alpine docker image utilized with the
-  docker release of KeeWeb password manager:
-
-  https://github.com/keeweb/keeweb
