@@ -206,8 +206,8 @@ jobs:
                       ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=false
-                      type=raw,value=${{ inputs.IMAGE_VERSION }},event=workflow_dispatch
-                      type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-arm64,event=tag
+                      type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-arm64,value=${{ INPUTS.IMAGE_VERSION }}
+                      type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push' }},priority=600,prefix=,suffix=-arm64,event=tag
                   flavor: |
                       latest=false
 
@@ -239,7 +239,7 @@ jobs:
                   file: Dockerfile.aarch64
                   platforms: linux/arm64
                   push: ${{ github.event_name != 'pull_request' }}
-                  tags: ${{ steps.task_release_gh_meta.outputs.tags || inputs.IMAGE_VERSION }}
+                  tags: ${{ steps.task_release_gh_meta.outputs.tags }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
 
     # #
@@ -320,7 +320,7 @@ jobs:
                       ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=false
-                      type=raw,value=${{ inputs.IMAGE_VERSION }},event=workflow_dispatch
+                      type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-arm64,value=${{ INPUTS.IMAGE_VERSION }}
                       type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-arm64,event=tag
                   flavor: |
                       latest=false
@@ -353,7 +353,7 @@ jobs:
                   file: Dockerfile.aarch64
                   platforms: linux/arm64
                   push: ${{ github.event_name != 'pull_request' }}
-                  tags: ${{ steps.task_release_dh_meta.outputs.tags || inputs.IMAGE_VERSION }}
+                  tags: ${{ steps.task_release_dh_meta.outputs.tags }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
 
     # #
@@ -434,7 +434,7 @@ jobs:
                       ghcr.io/${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
-                      type=raw,value=${{ inputs.IMAGE_VERSION }},event=workflow_dispatch
+                      type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-amd64,value=${{ INPUTS.IMAGE_VERSION }}
                       type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-amd64,event=tag
                   flavor: |
                       latest=true
@@ -467,7 +467,7 @@ jobs:
                   file: Dockerfile
                   platforms: linux/amd64
                   push: ${{ github.event_name != 'pull_request' }}
-                  tags: ${{ steps.task_release_gh_meta.outputs.tags || inputs.IMAGE_VERSION }}
+                  tags: ${{ steps.task_release_gh_meta.outputs.tags }}
                   labels: ${{ steps.task_release_gh_meta.outputs.labels }}
 
     # #
@@ -547,7 +547,7 @@ jobs:
                       ${{ inputs.IMAGE_AUTHOR || env.IMAGE_AUTHOR }}/${{ inputs.IMAGE_NAME || env.IMAGE_NAME }}
                   tags: |
                       type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
-                      type=raw,value=${{ inputs.IMAGE_VERSION }},event=workflow_dispatch
+                      type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-amd64,value=${{ INPUTS.IMAGE_VERSION }}
                       type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-amd64,event=tag
                   flavor: |
                       latest=true
@@ -580,5 +580,5 @@ jobs:
                   file: Dockerfile
                   platforms: linux/amd64
                   push: ${{ github.event_name != 'pull_request' }}
-                  tags: ${{ steps.task_release_dh_meta.outputs.tags || inputs.IMAGE_VERSION }}
+                  tags: ${{ steps.task_release_dh_meta.outputs.tags }}
                   labels: ${{ steps.task_release_dh_meta.outputs.labels }}
