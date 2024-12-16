@@ -1,10 +1,18 @@
 #!/bin/bash
 
-# Use /bin/bash shebang because we don't want the container environment in here
+# #
+#   @version        1
+#   @file           with-contenv.v1
+#   @date           12-15-24
+#   @usage          makes use of s6-overlay for docker containers
+#                   https://github.com/just-containers/s6-overlay
+# #
 
-# Version 1
-# 2024-10-18 - Initial Release
-WITHCONTENV_VER="1.20241018"
+WITHCONTENV_VER='1.20241215'
+
+# #
+#   UMASK
+# #
 
 if [[ -f /run/s6/container_environment/UMASK ]] &&
     { [[ "$(pwdx $$)" =~ "/run/s6/legacy-services/" ]] ||
@@ -12,4 +20,5 @@ if [[ -f /run/s6/container_environment/UMASK ]] &&
         [[ "$(pwdx $$)" =~ "/servicedirs/svc-" ]]; }; then
     umask "$(cat /run/s6/container_environment/UMASK)"
 fi
+
 exec /command/with-contenv "$@"
