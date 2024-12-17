@@ -377,7 +377,7 @@ jobs:
                       ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}
                   tags: |
                       #  latest yes
-                      type=raw,value=latest,enable=${{ inputs.BETA_RELEASE == false && endsWith(github.ref, 'main' || false ) }}
+                      type=raw,value=latest,enable=${{ inputs.BETA_RELEASE != true && endsWith(github.ref, 'main' ) }}
 
                       #  dispatch       add x1.x.x-amd64
                       type=raw,enable=${{ github.event_name == 'workflow_dispatch' && inputs.BETA_RELEASE == false }},priority=300,prefix=,suffix=-amd64,value=${{ env.IMAGE_VERSION }}
