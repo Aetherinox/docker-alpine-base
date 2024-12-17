@@ -368,7 +368,7 @@ jobs:
                   images: |
                       ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}
                   tags: |
-                      type=raw,value=latest,enable=${{ inputs.BETA_RELEASE == true && endsWith(github.ref, 'main') }}
+                      type=raw,value=latest,enable=${{ inputs.BETA_RELEASE == false && endsWith(github.ref, 'main' || false ) }}
                       type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},priority=300,prefix=,suffix=-amd64,value=${{ env.IMAGE_VERSION }}
                       type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-amd64,event=tag
                       type=raw,enable=${{ inputs.BETA_RELEASE }},priority=400,prefix=,suffix=,value=beta
