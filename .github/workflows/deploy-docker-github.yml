@@ -373,7 +373,7 @@ jobs:
                       type=ref,enable=${{ github.event_name == 'pull_request' || github.event_name == 'push'}},priority=600,prefix=,suffix=-amd64,event=tag
                       type=raw,enable=${{ inputs.BETA_RELEASE }},priority=400,prefix=,suffix=,value=beta
                   flavor: |
-                      latest=true
+                      latest=${{ inputs.BETA_RELEASE == false && endsWith(github.ref, 'main' || false ) }}
 
             # #
             #   Release › Github › Debug › Amd64
